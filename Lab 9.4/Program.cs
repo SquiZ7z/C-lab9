@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
-class Озеро : IEnumerable<int>
+class Lake : IEnumerable<int>
 {
-    private List<int> камені;
+    private List<int> stones;
 
-    // Конструктор класу Озеро, приймає масив каменів
-    public Озеро(int[] камені)
+    // Конструктор класу Lake, приймає масив каменів
+    public Lake(int[] stones)
     {
         // Ініціалізуємо список каменів
-        this.камені = new List<int>(камені);
+        this.stones = new List<int>(stones);
     }
 
     // Реалізація методу GetEnumerator() інтерфейсу IEnumerable<int>
@@ -18,18 +18,18 @@ class Озеро : IEnumerable<int>
     {
         // Підказка: Перший прохід - парні позиції в порядку зростання
         Console.WriteLine("Перший прохід: парні позиції в порядку зростання");
-        for (int i = 0; i < камені.Count; i += 2)
+        for (int i = 0; i < stones.Count; i += 2)
         {
-            Console.WriteLine($"Стрибаємо на камінь {камені[i]}");
-            yield return камені[i]; // Повертаємо значення каменя
+            Console.WriteLine($"Стрибаємо на камінь {stones[i]}");
+            yield return stones[i]; // Повертаємо значення каменя
         }
 
         // Підказка: Другий прохід - непарні позиції в зворотньому порядку
         Console.WriteLine("Другий прохід: непарні позиції в зворотньому порядку");
-        for (int i = камені.Count % 2 == 0 ? камені.Count - 1 : камені.Count - 2; i >= 0; i -= 2)
+        for (int i = stones.Count % 2 == 0 ? stones.Count - 1 : stones.Count - 2; i >= 0; i -= 2)
         {
-            Console.WriteLine($"Стрибаємо на камінь {камені[i]}");
-            yield return камені[i]; // Повертаємо значення каменя
+            Console.WriteLine($"Стрибаємо на камінь {stones[i]}");
+            yield return stones[i]; // Повертаємо значення каменя
         }
     }
 
@@ -42,21 +42,23 @@ class Озеро : IEnumerable<int>
 
 class Program
 {
+    private static readonly int[] stones;
+
     static void Main()
     {
-        // Підказка: Вхідні дані - номери каменів
+        // Підказка: Вхідні дані - номери
         int[] камені = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        Console.WriteLine("Вхідні дані: номери каменів у порядку");
-        foreach (var камінь in камені)
+        Console.WriteLine("Вхідні дані: номери stones у порядку");
+        foreach (var stones in stones)
         {
-            Console.Write(камінь + " ");
+            Console.Write(stones + " ");
         }
 
         Console.WriteLine("\n\nЗміна порядку стрибків жаби:\n");
 
         // Використання класу Озеро та циклу foreach для ітерації через всі камені в порядку, описаному в завданні
-        Озеро озеро = new Озеро(камені);
-        foreach (int камінь in озеро)
+        Lake lake = new Lake(stones);
+        foreach (int камінь in lake)
         {
             Console.Write(камінь + " ");
         }
